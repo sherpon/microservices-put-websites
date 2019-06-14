@@ -1,0 +1,22 @@
+{
+  "name": "putwebsites",
+  "version": "1.0.0",
+  "description": "## 1. Deploy",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sherpon/microservices-put-websites.git"
+  },
+  "author": "Bruce Grover Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sherpon/microservices-put-websites/issues"
+  },
+  "homepage": "https://github.com/sherpon/microservices-put-websites#readme",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  }
+}
