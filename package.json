@@ -18,5 +18,9 @@
   "homepage": "https://github.com/sherpon/microservices-put-websites#readme",
   "devDependencies": {
     "jest": "^24.8.0"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^2.2.1",
+    "axios": "^0.19.0"
   }
 }
