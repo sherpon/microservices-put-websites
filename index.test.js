@@ -52,7 +52,7 @@ describe('Test putWebsites', () => {
     require('axios').__setMockResponse(mockResponse);
     let mocks = getMocks();
     mocks.req.headers.authorization = `Beare ${parameters.header.token}`;
-    mocks.req.method = 'POST';
+    mocks.req.method = 'PUT';
     mocks.req.body = parameters.body;
     mocks.req.query = parameters.query;
     await microservice.putWebsites(mocks.req, mocks.res);

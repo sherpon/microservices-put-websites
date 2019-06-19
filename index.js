@@ -5,10 +5,32 @@ const getToken = require('./utilities/getToken');
 const getFirestore = require('./db/getFirestore');
 const updateWebsites = require('./db/updateWebsites');
 const getAuthorization = require('./services/getAuthorization');
+const domainManager = require('./services/domainManager');
 
 let firestore;
 
-const updateWebsitesDomainStep = async (req, res) => {};
+const updateWebsitesDomainStep = async (req, res) => {
+  try {
+    const websiteId = req.query.websiteId;
+    const newDomain = req.body.newDomain;
+    const oldDomain = req.body.oldDomain;
+    const response = await domainManager(websiteId, newDomain, oldDomain);
+    if (response.status===204) {
+      // no content
+      res.status(204);
+      res.end();  // send no content  
+    } else {
+      // bad request
+      console.log('the domainManager failed');
+      res.status(401);
+      res.end();  // send no content
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(401);
+    res.end();  // send no content
+  }
+};
 
 const updateWebsitesStep = async (req, res) => {
   try {
@@ -19,11 +41,12 @@ const updateWebsitesStep = async (req, res) => {
     const oldDomain = req.body.oldDomain;
     firestore = getFirestore(firestore);
     await updateWebsites(firestore, websiteId, name, favicon, newDomain);
-    // if (newDomain!==oldDomain) {
-    //  await updateWebsitesDomainStep(req, res);
-    // }
-    res.status(204);
-    res.end();  // send no content
+    if (newDomain!==oldDomain) {
+      await updateWebsitesDomainStep(req, res);
+    } else {
+      res.status(204);
+      res.end();  // send no content  
+    }
   } catch (error) {
     console.error(error);
     res.status(401);
@@ -90,7 +113,7 @@ exports.putWebsites = async (req, res) => {
 
   if (req.method === 'OPTIONS') {
     // Send response to OPTIONS requests
-    res.set('Access-Control-Allow-Methods', 'POST');
+    res.set('Access-Control-Allow-Methods', 'PUT');
     res.set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
     res.set('Access-Control-Max-Age', '3600');
     res.status(204)
