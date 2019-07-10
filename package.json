@@ -1,5 +1,5 @@
 {
-  "name": "putwebsites",
+  "name": "microservices-put-websites",
   "version": "1.0.0",
   "description": "## 1. Deploy",
   "main": "index.js",
