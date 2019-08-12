@@ -46,10 +46,15 @@ describe('Test putWebsites', () => {
         oldDomain: 'old-domain.com',
       },
     };
-    const mockResponse = {
-      status: 202 // authorized
-    };
-    require('axios').__setMockResponse(mockResponse);
+    const mockResponse = [
+      {
+        status: 202 // authorized
+      },{
+        status: 204 // authorized
+      },
+    ];
+    //require('axios').__setMockResponse(mockResponse);
+    require('axios').__setMockResultArray(mockResponse);
     let mocks = getMocks();
     mocks.req.headers.authorization = `Beare ${parameters.header.token}`;
     mocks.req.method = 'PUT';
